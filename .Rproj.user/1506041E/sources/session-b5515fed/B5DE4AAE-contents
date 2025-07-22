@@ -1,5 +1,5 @@
 library(readxl)
-df <- read_excel("D:/R project/Y vs A vs RSV/DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)
+DEG_data <- read_excel("D:/R project/Y vs A vs RSV/DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)
 
 young_vs_aged <- df %>%
   filter(Cluster %in% c("Endothelial_cells", "Macrophages", "T_cells"),

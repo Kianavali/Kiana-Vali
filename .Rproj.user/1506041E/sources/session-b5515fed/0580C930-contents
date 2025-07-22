@@ -4,6 +4,30 @@ title: "Brain inflammaging scRNA seq"
 
 About this site
 ```{r}
+#read data file
 
+library(readxl)
+DEG_data <- read_excel("D:/R project/Y vs A vs RSV/DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)
+
+```
+
+```{r}
+library(dplyr)
+
+# Define the cell types you want to keep
+cell_types <- c("Endothelial_cells", "Microglia", "Macrophages", "T_memory_cells")
+
+# Filter the DEG dataset to keep only these 2 cell types
+filtered_deg <- DEG_data %>%
+  filter(Cluster %in% cell_types)
+
+# Check how many gene comparisons exist for each selected cell type
+table(filtered_deg$Cluster)
+```
+
+```{r}
+young_vs_aged <- filtered_deg %>%
+  filter(ident.1 == "G2_old", ident.2 == "G1_young")
+table(young_vs_aged$Cluster)
 ```
 

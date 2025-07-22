@@ -8,7 +8,7 @@ about:
     - text: GitHub
       href: link
     - text: Email
-      href: kiana_valikordestan@ou.edu
+      href: kiana-valikordestan@ou.edu
 ---
 
 ::: {.column-page}
