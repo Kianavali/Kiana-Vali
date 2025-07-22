@@ -1,5 +1,6 @@
 ---
 title: "Kiana_Vali"
+image: GITHUBPROFILE.jpg
 toc: true
 about:
   template: trestles
