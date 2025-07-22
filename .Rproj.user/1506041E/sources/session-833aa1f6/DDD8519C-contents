@@ -15,7 +15,7 @@ DEG_data <- read_excel("D:/R project/Y vs A vs RSV/DEG_All_Condition_All_CellTyp
 library(dplyr)
 
 # Define the cell types you want to keep
-cell_types <- c("Endothelial_cells", "Microglia", "Macrophages", "T_cells")
+cell_types <- c("Endothelial_cells", "Microglia", "Macrophages", "T_memory_cells")
 
 # Filter the DEG dataset to keep only these 2 cell types
 filtered_deg <- DEG_data %>%

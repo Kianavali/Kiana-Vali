@@ -11,10 +11,7 @@ website:
         text: Projects
 format:
   html:
-    theme:
-      - cosmo
-      - brand
-    css: styles.css
+    theme: styles.scss
     toc: true
 
 
