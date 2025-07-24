@@ -98,7 +98,6 @@ These genes were selected for their roles in inflammation, immune regulation, or
 ```{r}
 library(dplyr)
 library(ggplot2)
-library(ggrepel)
 
 # Filter for endothelial cells aged vs young
 endo_deg <- DEG_data %>%
