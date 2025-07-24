@@ -64,6 +64,23 @@ ggplot(inflamm_subset, aes(x = Cluster, y = gene_symbol, fill = avg_log2FC)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         panel.grid = element_blank())
 ```
+## Gene Function Summary
+
+These genes were selected for their roles in inflammation, immune regulation, or endothelial interactions relevant to brain aging:
+
+| **Gene**  | **Function** |
+|-----------|--------------|
+| **Vcam1** | Endothelial adhesion molecule involved in leukocyte binding and transmigration |
+| **Tnf**   | Master pro-inflammatory cytokine activating NF-κB and other immune pathways |
+| **Tapbp** | Tapasin; involved in MHC class I antigen processing and presentation |
+| **Sell**  | L-selectin; mediates immune cell migration to lymphoid and inflamed tissues |
+| **Sele**  | E-selectin; recruits neutrophils and monocytes to sites of inflammation |
+| **Ptprc** | CD45; essential for T and B cell activation and signaling |
+| **Nos2**  | iNOS; produces nitric oxide in macrophages for microbial defense |
+| **Lyz2**  | Antimicrobial enzyme produced by macrophages and neutrophils |
+| **Icam1** | Endothelial adhesion molecule involved in immune-endothelial interactions |
+| **Cd274** | PD-L1; immune checkpoint molecule that suppresses T cell activation |
+| **Ccl4**  | Chemokine that recruits monocytes, T cells, and NK cells to inflamed tissue |
 
 ```{r}
 
