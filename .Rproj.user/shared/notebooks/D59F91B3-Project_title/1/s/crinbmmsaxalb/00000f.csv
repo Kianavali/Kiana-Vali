@@ -1,8 +1,0 @@
-"0","library(knitr)"
-"0","library(kableExtra)"
-"0",""
-"0","top10_both %>%"
-"0","  select(Cluster, gene_symbol, avg_log2FC, p_val_adj, direction) %>%"
-"0","  mutate(p_val_adj = signif(p_val_adj, 3)) %>%"
-"0","  kable(format = ""html"", digits = 2, caption = ""Top 10 Up & Down Genes per Cell Type (Aged vs Young)"") %>%"
-"0","  kable_styling(full_width = FALSE, bootstrap_options = c(""striped"", ""hover""))"

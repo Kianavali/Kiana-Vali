@@ -157,13 +157,12 @@ top10_both
 
 ```{r}
 library(knitr)
-library(kableExtra)
 
 top10_both %>%
   select(Cluster, gene_symbol, avg_log2FC, p_val_adj, direction) %>%
   mutate(p_val_adj = signif(p_val_adj, 3)) %>%
-  kable(format = "html", digits = 2, caption = "Top 10 Up & Down Genes per Cell Type (Aged vs Young)") %>%
-  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover"))
+  kable(format = "html", digits = 2, 
+        caption = "Top 10 Up & Down Genes per Cell Type (Aged vs Young)")
 
 ```
 ```{r}
