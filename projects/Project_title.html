@@ -191,7 +191,7 @@ Attaching package: 'dplyr'</code></pre>
     intersect, setdiff, setequal, union</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the cell types you want to keep</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cell_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Endothelial_cells"</span>, <span class="st">"Microglia"</span>, <span class="st">"Macrophages"</span>, <span class="st">"T_memory_cells"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cell_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Endothelial_cells"</span>, <span class="st">"Macrophages"</span>, <span class="st">"T_memory_cells"</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the DEG dataset to keep only these 2 cell types</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>filtered_deg <span class="ot">&lt;-</span> DEG_data <span class="sc">%&gt;%</span></span>
@@ -201,8 +201,8 @@ Attaching package: 'dplyr'</code></pre>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(filtered_deg<span class="sc">$</span>Cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Endothelial_cells       Macrophages         Microglia    T_memory_cells 
-            64413             16803             73753              6767 </code></pre>
+Endothelial_cells       Macrophages    T_memory_cells 
+            64413             16803              6767 </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -211,8 +211,48 @@ Endothelial_cells       Macrophages         Microglia    T_memory_cells
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(young_vs_aged<span class="sc">$</span>Cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Endothelial_cells       Macrophages         Microglia    T_memory_cells 
-            10813               477             11588               524 </code></pre>
+Endothelial_cells       Macrophages    T_memory_cells 
+            10813               477               524 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Broader inflammation/immune gene panel</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>inflammatory_genes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Il1b"</span>, <span class="st">"Il6"</span>, <span class="st">"Tnf"</span>, <span class="st">"Ifng"</span>, </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ccl2"</span>, <span class="st">"Ccl3"</span>, <span class="st">"Ccl4"</span>, <span class="st">"Cxcl9"</span>, <span class="st">"Cxcl10"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Cd74"</span>, <span class="st">"Cd80"</span>, <span class="st">"Cd86"</span>, <span class="st">"Cd274"</span>, <span class="st">"Pdcd1lg2"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"H2-Ab1"</span>, <span class="st">"H2-Aa"</span>, <span class="st">"H2-Eb1"</span>, <span class="st">"Tap1"</span>, <span class="st">"Tapbp"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Icam1"</span>, <span class="st">"Vcam1"</span>, <span class="st">"Sele"</span>, <span class="st">"Sell"</span>, </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Lyz2"</span>, <span class="st">"Nos2"</span>, <span class="st">"Ptprc"</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Filter for the genes and relevant cell types</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>cell_types_focus <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Endothelial_cells"</span>, <span class="st">"Macrophages"</span>, <span class="st">"T_memory_cells"</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>inflamm_subset <span class="ot">&lt;-</span> DEG_data <span class="sc">%&gt;%</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cluster <span class="sc">%in%</span> cell_types_focus,</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>         gene_symbol <span class="sc">%in%</span> inflammatory_genes,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>         ident<span class="fl">.1</span> <span class="sc">==</span> <span class="st">"G2_old"</span>, ident<span class="fl">.2</span> <span class="sc">==</span> <span class="st">"G1_young"</span>)  <span class="co"># ensure aged vs young only</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Plot as ggplot heatmap</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(inflamm_subset, <span class="fu">aes</span>(<span class="at">x =</span> Cluster, <span class="at">y =</span> gene_symbol, <span class="at">fill =</span> avg_log2FC)) <span class="sc">+</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">mid =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"red"</span>, <span class="at">midpoint =</span> <span class="dv">0</span>,</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"log2FC"</span>) <span class="sc">+</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Log2 Fold Change of Broad Inflammatory Genes (Aged vs. Young)"</span>,</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cell Type"</span>, <span class="at">y =</span> <span class="st">"Gene"</span>) <span class="sc">+</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Project_title_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 
