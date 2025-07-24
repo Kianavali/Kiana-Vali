@@ -86,28 +86,7 @@ These genes were selected for their roles in inflammation, immune regulation, or
 | **Ccl4**  | Chemokine that recruits monocytes, T cells, and NK cells to inflamed tissue |
 
 ```{r}
-library(ggplot2)
-library(viridis)
 
-# Add -log10(p-value) and significance
-endo_deg <- endo_deg %>%
-  mutate(log10_pval = -log10(p_val_adj),
-         significance = case_when(
-           p_val_adj < 0.05 & abs(avg_log2FC) > 1 ~ "Significant",
-           TRUE ~ "Not significant"
-         ))
-
-# Volcano plot
-ggplot(endo_deg, aes(x = avg_log2FC, y = log10_pval)) +
-  geom_point(aes(color = significance), alpha = 0.7) +
-  scale_color_viridis_d(option = "magma", direction = -1) +
-  geom_vline(xintercept = c(-1, 1), linetype = "dashed", color = "gray") +
-  geom_hline(yintercept = -log10(0.05), linetype = "dashed", color = "gray") +
-  labs(title = "Volcano Plot: Endothelial Cells (Aged vs Young)",
-       x = "log2 Fold Change",
-       y = "-log10(adj p-value)",
-       color = "Significance") +
-  theme_minimal()
 
 ```
 
