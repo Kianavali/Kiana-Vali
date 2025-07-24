@@ -17,6 +17,7 @@ DEG_data <- read_excel("DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)
 ```{r}
 library(tidyverse)
 library(dplyr)
+library(ggplot2)
 ```
 
 
@@ -45,8 +46,6 @@ table(young_vs_aged$Cluster)
 ```
 
 ```{r}
-library(dplyr)
-library(ggplot2)
 
 # Step 1: Broader inflammation/immune gene panel
 inflammatory_genes <- c(
@@ -96,8 +95,6 @@ These genes were selected for their roles in inflammation, immune regulation, or
 | **Ccl4**  | Chemokine that recruits monocytes, T cells, and NK cells to inflamed tissue |
 
 ```{r}
-library(dplyr)
-library(ggplot2)
 
 # Filter for endothelial cells aged vs young
 endo_deg <- DEG_data %>%
@@ -130,6 +127,61 @@ ggplot(endo_deg, aes(x = avg_log2FC, y = log10_pval)) +
 ```
 
 ```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(forcats)
+
+cell_types_focus <- c("Endothelial_cells", "Macrophages", "T_memory_cells")
+
+sig_deg <- DEG_data %>%
+  filter(Cluster %in% cell_types_focus,
+         ident.1 == "G2_old", ident.2 == "G1_young",
+         p_val_adj < 0.05)
+
+top_up   <- sig_deg %>%
+  group_by(Cluster) %>%
+  slice_max(order_by = avg_log2FC, n = 10, with_ties = FALSE) %>%
+  mutate(direction = "Up (old vs young)")
+
+top_down <- sig_deg %>%
+  group_by(Cluster) %>%
+  slice_min(order_by = avg_log2FC, n = 10, with_ties = FALSE) %>%
+  mutate(direction = "Down (old vs young)")
+
+top10_both <- bind_rows(top_up, top_down) %>%
+  arrange(Cluster, desc(avg_log2FC))
+
+top10_both
+```
+
+```{r}
+library(knitr)
+library(kableExtra)
+
+top10_both %>%
+  select(Cluster, gene_symbol, avg_log2FC, p_val_adj, direction) %>%
+  mutate(p_val_adj = signif(p_val_adj, 3)) %>%
+  kable(format = "html", digits = 2, caption = "Top 10 Up & Down Genes per Cell Type (Aged vs Young)") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover"))
+
+```
+```{r}
+ggplot(top10_both,
+       aes(x = fct_reorder(gene_symbol, avg_log2FC),
+           y = avg_log2FC,
+           color = direction)) +
+  geom_point(size = 3) +
+  geom_segment(aes(xend = gene_symbol, y = 0, yend = avg_log2FC),
+               linewidth = 0.6) +
+  facet_wrap(~ Cluster, scales = "free_y") +
+  coord_flip() +
+  scale_color_manual(values = c("Up (old vs young)" = "firebrick2",
+                                "Down (old vs young)" = "dodgerblue3")) +
+  labs(title = "Top 10 Up & Down DEGs per Cell Type (Aged vs Young)",
+       x = "Gene", y = "log2FC (old vs young)", color = "") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top")
 
 ```
 
