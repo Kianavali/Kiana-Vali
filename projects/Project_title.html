@@ -150,6 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#dataset-overview" id="toc-dataset-overview" class="nav-link" data-scroll-target="#dataset-overview">Dataset Overview</a></li>
   <li><a href="#gene-function-summary" id="toc-gene-function-summary" class="nav-link" data-scroll-target="#gene-function-summary">Gene Function Summary</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -193,7 +194,8 @@ library(readxl)
 DEG_data &lt;- read_excel("DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)</code></pre>
 <p>:::</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load necessary packages</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -210,7 +212,7 @@ DEG_data &lt;- read_excel("DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)</c
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#head</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#look at the data</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> (DEG_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 9
@@ -225,10 +227,10 @@ DEG_data &lt;- read_excel("DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)</c
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the cell types you want to keep</span></span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define cell types I want to keep</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cell_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Endothelial_cells"</span>, <span class="st">"Macrophages"</span>, <span class="st">"T_memory_cells"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the DEG dataset to keep only these 2 cell types</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the DEG dataset to keep only these 3 cell types</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>filtered_deg <span class="ot">&lt;-</span> DEG_data <span class="sc">%&gt;%</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cluster <span class="sc">%in%</span> cell_types)</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
@@ -241,9 +243,10 @@ Endothelial_cells       Macrophages    T_memory_cells
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>young_vs_aged <span class="ot">&lt;-</span> filtered_deg <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ident<span class="fl">.1</span> <span class="sc">==</span> <span class="st">"G2_old"</span>, ident<span class="fl">.2</span> <span class="sc">==</span> <span class="st">"G1_young"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(young_vs_aged<span class="sc">$</span>Cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># only young vs. aged</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>young_vs_aged <span class="ot">&lt;-</span> filtered_deg <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ident<span class="fl">.1</span> <span class="sc">==</span> <span class="st">"G2_old"</span>, ident<span class="fl">.2</span> <span class="sc">==</span> <span class="st">"G1_young"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(young_vs_aged<span class="sc">$</span>Cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Endothelial_cells       Macrophages    T_memory_cells 
@@ -900,7 +903,10 @@ Endothelial_cells       Macrophages    T_memory_cells
 </div>
 </div>
 </div>
-<p>##Summary Using single-cell RNA-seq data from young and aged mouse brains, this project revealed age-related transcriptional changes in endothelial cells, macrophages, and T memory cells. Aged brains showed increased expression of adhesion molecules (e.g., VCAM1, ICAM1) and inflammatory mediators (e.g., CXCL10, TNF), suggesting enhanced immune activation and vascular inflammation. These findings highlight cell-type–specific shifts that may contribute to neuroinflammation and barrier dysfunction with aging.</p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>Using single-cell RNA-seq data from young and aged mouse brains, this project revealed age-related transcriptional changes in endothelial cells, macrophages, and T memory cells. Aged brains showed increased expression of adhesion molecules (e.g., VCAM1, ICAM1) and inflammatory mediators (e.g., CXCL10, TNF), suggesting enhanced immune activation and vascular inflammation. These findings highlight cell-type–specific shifts that may contribute to neuroinflammation and barrier dysfunction with aging.</p>
 
 
 </section>
