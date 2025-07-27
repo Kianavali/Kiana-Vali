@@ -16,14 +16,13 @@ DEG_data <- read_excel("DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)
 
 ```
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 #load necessary packages
 message = FALSE
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
 ```
-
 
 ```{r}
 #look at the data
@@ -37,7 +36,7 @@ all_cell_counts <- DEG_data %>%
   summarise(Count = n()) %>%
   arrange(desc(Count))
 
-# Plot
+# Overview bar plot
 ggplot(all_cell_counts, aes(x = reorder(Cluster, -Count), y = Count, fill = Cluster)) +
   geom_bar(stat = "identity") +
   labs(title = "Overview of All Cell Types in DEG Dataset",
@@ -56,12 +55,7 @@ cell_types <- c("Endothelial_cells", "Macrophages", "T_memory_cells")
 # Filter the DEG dataset to keep only these 3 cell types
 filtered_deg <- DEG_data %>%
   filter(Cluster %in% cell_types)
-
-# Check how many gene comparisons exist for each selected cell type
-table(filtered_deg$Cluster)
-```
-
-```{r}
+  
 # only young vs. aged
 young_vs_aged <- filtered_deg %>%
   filter(ident.1 == "G2_old", ident.2 == "G1_young")
