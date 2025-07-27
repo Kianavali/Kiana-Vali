@@ -194,8 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#look at the data</span></span>
@@ -216,17 +215,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count number of entries per cell type (Cluster column)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>all_cell_counts <span class="ot">&lt;-</span> DEG_data <span class="sc">%&gt;%</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cluster) <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Count))</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Overview bar plot</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(all_cell_counts, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Cluster, <span class="sc">-</span>Count), <span class="at">y =</span> Count, <span class="at">fill =</span> Cluster)) <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Overview of All Cell Types in DEG Dataset"</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cell Type"</span>, <span class="at">y =</span> <span class="st">"Number of Entries"</span>) <span class="sc">+</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Count =</span> <span class="fu">n</span>())</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Overview bar plot</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(all_cell_counts, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Cluster, <span class="sc">-</span>Count), <span class="at">y =</span> Count, <span class="at">fill =</span> Cluster)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Overview of All Cell Types in DEG Dataset"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cell Type"</span>, <span class="at">y =</span> <span class="st">"Number of Entries"</span>) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -273,18 +271,16 @@ Endothelial_cells       Macrophages    T_memory_cells
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Downregulated"</span> <span class="ot">=</span> <span class="st">"dodgerblue3"</span>,</span>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Not significant"</span> <span class="ot">=</span> <span class="st">"grey70"</span></span>
 <span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">0.05</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Volcano Plot: Endothelial Cells (Aged vs Young)"</span>,</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log2 Fold Change"</span>,</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"-log10 Adjusted p-value"</span>,</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Regulation"</span>) <span class="sc">+</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Volcano Plot: Endothelial Cells (Aged vs Young)"</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log2 Fold Change"</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"-log10 Adjusted p-value"</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Regulation"</span>) <span class="sc">+</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Project_title_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Project_title_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -309,14 +305,59 @@ Endothelial_cells       Macrophages    T_memory_cells
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Downregulated"</span> <span class="ot">=</span> <span class="st">"dodgerblue3"</span>,</span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Not significant"</span> <span class="ot">=</span> <span class="st">"grey70"</span></span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">0.05</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Volcano Plot: Macrophages (Aged vs Young)"</span>,</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log2 Fold Change"</span>,</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"-log10 Adjusted p-value"</span>,</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Regulation"</span>) <span class="sc">+</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Volcano Plot: Macrophages (Aged vs Young)"</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log2 Fold Change"</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"-log10 Adjusted p-value"</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Regulation"</span>) <span class="sc">+</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Project_title_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define top 5 DEGs per cluster</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>top5_combined <span class="ot">&lt;-</span> DEG_data <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cluster <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Endothelial_cells"</span>, <span class="st">"Macrophages"</span>, <span class="st">"T_memory_cells"</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>         ident<span class="fl">.1</span> <span class="sc">==</span> <span class="st">"G2_old"</span>, ident<span class="fl">.2</span> <span class="sc">==</span> <span class="st">"G1_young"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(avg_log2FC), <span class="sc">!</span><span class="fu">is.na</span>(p_val_adj),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>         p_val_adj <span class="sc">&lt;</span> <span class="fl">0.05</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>         <span class="fu">abs</span>(avg_log2FC) <span class="sc">&gt;</span> <span class="dv">1</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"^Gm|^Rik|^ENSMUSG"</span>, gene_symbol)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">score =</span> <span class="fu">abs</span>(avg_log2FC) <span class="sc">*</span> <span class="sc">-</span><span class="fu">log10</span>(p_val_adj),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">display_gene =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(gene_symbol) <span class="sc">|</span> gene_symbol <span class="sc">==</span> <span class="st">""</span>, gene, gene_symbol),</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">direction =</span> <span class="fu">case_when</span>(</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>           avg_log2FC <span class="sc">&gt;</span> <span class="dv">1</span>  <span class="sc">~</span> <span class="st">"Up (old vs young)"</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>           avg_log2FC <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"Down (old vs young)"</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>         )) <span class="sc">%&gt;%</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cluster, direction) <span class="sc">%&gt;%</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> score, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top5_combined,</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(display_gene, avg_log2FC),</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> avg_log2FC,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> direction)) <span class="sc">+</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> display_gene, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> avg_log2FC),</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Cluster, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Up (old vs young)"</span> <span class="ot">=</span> <span class="st">"firebrick2"</span>,</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Down (old vs young)"</span> <span class="ot">=</span> <span class="st">"dodgerblue3"</span>)) <span class="sc">+</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 5 Up &amp; Down DEGs per Cell Type"</span>,</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gene"</span>, <span class="at">y =</span> <span class="st">"log2FC (old vs young)"</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -326,38 +367,45 @@ Endothelial_cells       Macrophages    T_memory_cells
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Inflammation/immune gene panel</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>inflammatory_genes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Il1b"</span>, <span class="st">"Il6"</span>, <span class="st">"Tnf"</span>, <span class="st">"Ifng"</span>, </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ccl2"</span>, <span class="st">"Ccl3"</span>, <span class="st">"Ccl4"</span>, <span class="st">"Cxcl9"</span>, <span class="st">"Cxcl10"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Cd74"</span>, <span class="st">"Cd80"</span>, <span class="st">"Cd86"</span>, <span class="st">"Cd274"</span>, <span class="st">"Pdcd1lg2"</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"H2-Ab1"</span>, <span class="st">"H2-Aa"</span>, <span class="st">"H2-Eb1"</span>, <span class="st">"Tap1"</span>, <span class="st">"Tapbp"</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Icam1"</span>, <span class="st">"Vcam1"</span>, <span class="st">"Sele"</span>, <span class="st">"Sell"</span>, </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Lyz2"</span>, <span class="st">"Nos2"</span>, <span class="st">"Ptprc"</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>inflamm_subset <span class="ot">&lt;-</span> DEG_data <span class="sc">%&gt;%</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cluster <span class="sc">%in%</span> cell_types,</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>         gene_symbol <span class="sc">%in%</span> inflammatory_genes,</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>         ident<span class="fl">.1</span> <span class="sc">==</span> <span class="st">"G2_old"</span>, ident<span class="fl">.2</span> <span class="sc">==</span> <span class="st">"G1_young"</span>)  <span class="co"># ensure aged vs young only</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Plot as ggplot heatmap</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(inflamm_subset, <span class="fu">aes</span>(<span class="at">x =</span> Cluster, <span class="at">y =</span> gene_symbol, <span class="at">fill =</span> avg_log2FC)) <span class="sc">+</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">mid =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"red"</span>, <span class="at">midpoint =</span> <span class="dv">0</span>,</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"log2FC"</span>) <span class="sc">+</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Log2 Fold Change of Inflammatory Genes (Aged vs. Young)"</span>,</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cell Type"</span>, <span class="at">y =</span> <span class="st">"Gene"</span>) <span class="sc">+</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"italic"</span>),</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>),</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Define inflammatory/immune gene panel</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>inflammatory_genes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Il1b"</span>, <span class="st">"Il6"</span>, <span class="st">"Tnf"</span>, <span class="st">"Ifng"</span>, </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ccl2"</span>, <span class="st">"Ccl3"</span>, <span class="st">"Ccl4"</span>, <span class="st">"Cxcl9"</span>, <span class="st">"Cxcl10"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Cd74"</span>, <span class="st">"Cd80"</span>, <span class="st">"Cd86"</span>, <span class="st">"Cd274"</span>, <span class="st">"Pdcd1lg2"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"H2-Ab1"</span>, <span class="st">"H2-Aa"</span>, <span class="st">"H2-Eb1"</span>, <span class="st">"Tap1"</span>, <span class="st">"Tapbp"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Icam1"</span>, <span class="st">"Vcam1"</span>, <span class="st">"Sele"</span>, <span class="st">"Sell"</span>, </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Lyz2"</span>, <span class="st">"Nos2"</span>, <span class="st">"Ptprc"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"March1"</span>, <span class="st">"Marchf1"</span>, <span class="st">"Fam49b"</span>, <span class="st">"Qki"</span>, <span class="st">"Niban1"</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Filter DEG data</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>inflamm_subset <span class="ot">&lt;-</span> DEG_data <span class="sc">%&gt;%</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    Cluster <span class="sc">%in%</span> cell_types,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    gene_symbol <span class="sc">%in%</span> inflammatory_genes,</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    ident<span class="fl">.1</span> <span class="sc">==</span> <span class="st">"G2_old"</span>, ident<span class="fl">.2</span> <span class="sc">==</span> <span class="st">"G1_young"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(avg_log2FC)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Plot heatmap</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(inflamm_subset, <span class="fu">aes</span>(<span class="at">x =</span> Cluster, <span class="at">y =</span> gene_symbol, <span class="at">fill =</span> avg_log2FC)) <span class="sc">+</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">mid =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"red"</span>,</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">midpoint =</span> <span class="dv">0</span>,</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>),</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">oob =</span> scales<span class="sc">::</span>squish,</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"log2FC"</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Log2 Fold Change of Inflammatory Genes (Aged vs. Young)"</span>,</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Cell Type"</span>, <span class="at">y =</span> <span class="st">"Gene"</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -372,348 +420,87 @@ Endothelial_cells       Macrophages    T_memory_cells
 <p>These genes were selected for their roles in inflammation, immune regulation, or endothelial interactions:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 44%">
-<col style="width: 56%">
+<col style="width: 16%">
+<col style="width: 28%">
+<col style="width: 55%">
 </colgroup>
 <thead>
 <tr class="header">
 <th><strong>Gene</strong></th>
+<th><strong>Category</strong></th>
 <th><strong>Function</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Vcam1</strong></td>
-<td>Endothelial adhesion molecule involved in leukocyte binding and transmigration</td>
-</tr>
-<tr class="even">
 <td><strong>Tnf</strong></td>
-<td>Master pro-inflammatory cytokine activating NF-κB and other immune pathways</td>
-</tr>
-<tr class="odd">
-<td><strong>Tapbp</strong></td>
-<td>Tapasin; involved in MHC class I antigen processing and presentation</td>
+<td>Cytokine</td>
+<td>Pro-inflammatory signaling</td>
 </tr>
 <tr class="even">
-<td><strong>Sell</strong></td>
-<td>L-selectin; mediates immune cell migration to lymphoid and inflamed tissues</td>
+<td><strong>Il1b</strong></td>
+<td>Cytokine</td>
+<td>Fever and inflammation inducer</td>
 </tr>
 <tr class="odd">
-<td><strong>Sele</strong></td>
-<td>E-selectin; recruits neutrophils and monocytes to sites of inflammation</td>
+<td><strong>Il6</strong></td>
+<td>Cytokine</td>
+<td>Acute-phase and immune regulation</td>
 </tr>
 <tr class="even">
-<td><strong>Ptprc</strong></td>
-<td>CD45; essential for T and B cell activation and signaling</td>
+<td><strong>Ifng</strong></td>
+<td>Cytokine</td>
+<td>Activates macrophages, antiviral defense</td>
 </tr>
 <tr class="odd">
-<td><strong>Nos2</strong></td>
-<td>iNOS; produces nitric oxide in macrophages for microbial defense</td>
+<td><strong>Ccl2</strong></td>
+<td>Chemokine</td>
+<td>Monocyte recruitment</td>
 </tr>
 <tr class="even">
-<td><strong>Lyz2</strong></td>
-<td>Antimicrobial enzyme produced by macrophages and neutrophils</td>
-</tr>
-<tr class="odd">
-<td><strong>Icam1</strong></td>
-<td>Endothelial adhesion molecule involved in immune-endothelial interactions</td>
-</tr>
-<tr class="even">
-<td><strong>Cd274</strong></td>
-<td>PD-L1; immune checkpoint molecule that suppresses T cell activation</td>
+<td><strong>Ccl3</strong></td>
+<td>Chemokine</td>
+<td>Inflammatory cell recruitment</td>
 </tr>
 <tr class="odd">
 <td><strong>Ccl4</strong></td>
-<td>Chemokine that recruits monocytes, T cells, and NK cells to inflamed tissue</td>
+<td>Chemokine</td>
+<td>Attracts T cells, monocytes, NK cells</td>
+</tr>
+<tr class="even">
+<td><strong>Cxcl9</strong></td>
+<td>Chemokine</td>
+<td>T cell trafficking</td>
+</tr>
+<tr class="odd">
+<td><strong>Cxcl10</strong></td>
+<td>Chemokine</td>
+<td>T cell and NK cell recruitment</td>
 </tr>
 </tbody>
 </table>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 📊 Define and clean top 5 DEGs per cluster</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>top5_both <span class="ot">&lt;-</span> DEG_data <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cluster <span class="sc">%in%</span> cell_types,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         ident<span class="fl">.1</span> <span class="sc">==</span> <span class="st">"G2_old"</span>, ident<span class="fl">.2</span> <span class="sc">==</span> <span class="st">"G1_young"</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         avg_log2FC <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove uninformative predicted/missing genes</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"^Gm|^Rik|^ENSMUSG"</span>, gene_symbol)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">display_gene =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(gene_symbol) <span class="sc">|</span> gene_symbol <span class="sc">==</span> <span class="st">""</span>, gene_symbol, gene_symbol)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cluster) <span class="sc">%&gt;%</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> avg_log2FC, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">direction =</span> <span class="st">"Up (old vs young)"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    DEG_data <span class="sc">%&gt;%</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(Cluster <span class="sc">%in%</span> cell_types,</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>             ident<span class="fl">.1</span> <span class="sc">==</span> <span class="st">"G2_old"</span>, ident<span class="fl">.2</span> <span class="sc">==</span> <span class="st">"G1_young"</span>,</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>             avg_log2FC <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"^Gm|^Rik|^ENSMUSG"</span>, gene_symbol)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">display_gene =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(gene_symbol) <span class="sc">|</span> gene_symbol <span class="sc">==</span> <span class="st">""</span>, gene_symbol, gene_symbol)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(Cluster) <span class="sc">%&gt;%</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice_min</span>(<span class="at">order_by =</span> avg_log2FC, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">direction =</span> <span class="st">"Down (old vs young)"</span>)</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_val_adj =</span> <span class="fu">signif</span>(p_val_adj, <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Cluster, <span class="fu">desc</span>(avg_log2FC))</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 📋 Table</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>top5_both <span class="sc">%&gt;%</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Cluster, display_gene, avg_log2FC, p_val_adj, direction) <span class="sc">%&gt;%</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"html"</span>, <span class="at">digits =</span> <span class="dv">2</span>,</span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">"Top 5 Up &amp; Down Genes per Cell Type (Based on Fold Change)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Top 5 Up &amp; Down Genes per Cell Type (Based on Fold Change)</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Cluster</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">display_gene</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">avg_log2FC</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p_val_adj</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">direction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Endothelial_cells</td>
-<td style="text-align: left;">Qki</td>
-<td style="text-align: right;">16.30</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Endothelial_cells</td>
-<td style="text-align: left;">Cert1</td>
-<td style="text-align: right;">16.23</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Endothelial_cells</td>
-<td style="text-align: left;">Garre1</td>
-<td style="text-align: right;">15.30</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Endothelial_cells</td>
-<td style="text-align: left;">Nherf2</td>
-<td style="text-align: right;">15.01</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Endothelial_cells</td>
-<td style="text-align: left;">Septin7</td>
-<td style="text-align: right;">14.71</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Endothelial_cells</td>
-<td style="text-align: left;">4931406P16Rik</td>
-<td style="text-align: right;">-15.98</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Endothelial_cells</td>
-<td style="text-align: left;">Col4a3bp</td>
-<td style="text-align: right;">-16.95</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Endothelial_cells</td>
-<td style="text-align: left;">Qk</td>
-<td style="text-align: right;">-16.96</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Endothelial_cells</td>
-<td style="text-align: left;">Ptprg</td>
-<td style="text-align: right;">-19.14</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Endothelial_cells</td>
-<td style="text-align: left;">AY036118</td>
-<td style="text-align: right;">-19.19</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Macrophages</td>
-<td style="text-align: left;">Qki</td>
-<td style="text-align: right;">12.17</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Macrophages</td>
-<td style="text-align: left;">Cyrib</td>
-<td style="text-align: right;">11.80</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Macrophages</td>
-<td style="text-align: left;">Marchf1</td>
-<td style="text-align: right;">10.77</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Macrophages</td>
-<td style="text-align: left;">Niban1</td>
-<td style="text-align: right;">10.68</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Macrophages</td>
-<td style="text-align: left;">Lilrb4b</td>
-<td style="text-align: right;">10.62</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Macrophages</td>
-<td style="text-align: left;">Lilr4b</td>
-<td style="text-align: right;">-11.19</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Macrophages</td>
-<td style="text-align: left;">AC149090.1</td>
-<td style="text-align: right;">-11.21</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Macrophages</td>
-<td style="text-align: left;">Fam49b</td>
-<td style="text-align: right;">-12.36</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Macrophages</td>
-<td style="text-align: left;">Qk</td>
-<td style="text-align: right;">-12.63</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Macrophages</td>
-<td style="text-align: left;">AY036118</td>
-<td style="text-align: right;">-14.05</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">T_memory_cells</td>
-<td style="text-align: left;">Cyrib</td>
-<td style="text-align: right;">9.26</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">T_memory_cells</td>
-<td style="text-align: left;">Bltp1</td>
-<td style="text-align: right;">8.60</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">T_memory_cells</td>
-<td style="text-align: left;">Abtb3</td>
-<td style="text-align: right;">8.59</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">T_memory_cells</td>
-<td style="text-align: left;">Niban1</td>
-<td style="text-align: right;">8.38</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">T_memory_cells</td>
-<td style="text-align: left;">Mideas</td>
-<td style="text-align: right;">8.33</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Up (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">T_memory_cells</td>
-<td style="text-align: left;">4932438A13Rik</td>
-<td style="text-align: right;">-11.94</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">T_memory_cells</td>
-<td style="text-align: left;">Sept11</td>
-<td style="text-align: right;">-11.96</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">T_memory_cells</td>
-<td style="text-align: left;">Btbd11</td>
-<td style="text-align: right;">-12.03</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">T_memory_cells</td>
-<td style="text-align: left;">Fam49b</td>
-<td style="text-align: right;">-13.06</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">T_memory_cells</td>
-<td style="text-align: left;">AY036118</td>
-<td style="text-align: right;">-14.40</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Down (old vs young)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 📈 Plot</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top5_both,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(display_gene, avg_log2FC),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> avg_log2FC,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> direction)) <span class="sc">+</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> display_gene, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> avg_log2FC),</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: use `size` not `linewidth` for compatibility</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Cluster, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Up (old vs young)"</span> <span class="ot">=</span> <span class="st">"firebrick2"</span>,</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Down (old vs young)"</span> <span class="ot">=</span> <span class="st">"dodgerblue3"</span>)) <span class="sc">+</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 5 Up &amp; Down DEGs per Cell Type (Based on Fold Change)"</span>,</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gene"</span>, <span class="at">y =</span> <span class="st">"log2FC (old vs young)"</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Project_title_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<div class="line-block"><strong>Cd80</strong> | Co-stimulation | T cell activation ligand |<br>
+<strong>Cd86</strong> | Co-stimulation | Co-stimulatory receptor for CD28/CTLA4 |<br>
+<strong>Cd274</strong> | Immune checkpoint | PD-L1; suppresses T cell responses |<br>
+<strong>Pdcd1lg2</strong>| Immune checkpoint | PD-L2; binds PD-1 receptor on T cells |</div>
+<div class="line-block"><strong>H2-Aa</strong> | Antigen presentation | MHC II gene for antigen display |<br>
+<strong>H2-Ab1</strong> | Antigen presentation | MHC II gene for antigen display |<br>
+<strong>H2-Eb1</strong> | Antigen presentation | MHC II beta chain |<br>
+<strong>Tap1</strong> | Antigen processing | Peptide transporter for MHC I |<br>
+<strong>Tapbp</strong> | Antigen processing | Tapasin; MHC I loading chaperone |<br>
+<strong>Cd74</strong> | Antigen presentation | MHC II chaperone (invariant chain) |</div>
+<div class="line-block"><strong>Icam1</strong> | Adhesion | Endothelial-leukocyte adhesion |<br>
+<strong>Vcam1</strong> | Adhesion | Monocyte/T cell vascular adhesion |<br>
+<strong>Sele</strong> | Adhesion | E-selectin; neutrophil recruitment |<br>
+<strong>Sell</strong> | Adhesion | L-selectin; lymphocyte homing |</div>
+<div class="line-block"><strong>Lyz2</strong> | Innate response | Lysozyme; bacterial killing |<br>
+<strong>Nos2</strong> | Innate response | Nitric oxide synthesis |<br>
+<strong>Ptprc</strong> | Immune marker | CD45; leukocyte signaling |</div>
+<div class="line-block"><strong>March1</strong> | Immune regulation | Suppresses MHC II and CD86 on APCs |<br>
+<strong>Marchf1</strong> | Immune regulation | MARCH family E3 ligase |<br>
+<strong>Fam49b</strong> | Immune regulation | T cell activation inhibitor |<br>
+<strong>Qki</strong> | Immune regulation | RNA splicing; barrier integrity |<br>
+<strong>Niban1</strong> | Immune regulation | Stress/inflammation response |</div>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
