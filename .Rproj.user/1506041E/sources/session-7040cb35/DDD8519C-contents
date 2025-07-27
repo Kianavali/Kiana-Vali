@@ -14,10 +14,8 @@ library(readxl)
 DEG_data <- read_excel("DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)
 ```
 
-
 ```{r, message = FALSE, warning = FALSE}
-#load necessary packages
-message = FALSE
+# Load necessary packages
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
@@ -70,8 +68,7 @@ inflammatory_genes <- c(
   "Cd74", "Cd80", "Cd86", "Cd274", "Pdcd1lg2",
   "H2-Ab1", "H2-Aa", "H2-Eb1", "Tap1", "Tapbp",
   "Icam1", "Vcam1", "Sele", "Sell", 
-  "Lyz2", "Nos2", "Ptprc"
-)
+  "Lyz2", "Nos2", "Ptprc")
 
 # Step 2: Filter for the genes and relevant cell types
 cell_types_focus <- c("Endothelial_cells", "Macrophages", "T_memory_cells")
