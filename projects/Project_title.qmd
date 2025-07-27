@@ -20,6 +20,7 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 library(forcats)
+library(knitr)
 ```
 
 ```{r}
@@ -183,10 +184,6 @@ These genes were selected for their roles in inflammation, immune regulation, or
 | **Ccl4**  | Chemokine that recruits monocytes, T cells, and NK cells to inflamed tissue |
 
 ```{r}
-library(dplyr)
-library(ggplot2)
-library(forcats)
-library(knitr)
 
 # Define and clean
 top5_both <- DEG_data %>%
@@ -236,7 +233,6 @@ ggplot(top5_both,
        x = "Gene", y = "log2FC (old vs young)", color = "") +
   theme_minimal(base_size = 12) +
   theme(legend.position = "top")
-library(dplyr)
 
 ```
 

@@ -1,0 +1,22 @@
+---
+title: "Kiana_Vali"
+image: GITHUBPROFILE.jpg
+toc: true
+about:
+  template: trestles
+  links:
+    - text: GitHub
+      href: link
+    - text: Email
+      href: kiana-valikordestan@ou.edu
+---
+
+::: {.column-page}
+
+## Bio
+
+## Research Goals
+
+## Experience
+
+:::
