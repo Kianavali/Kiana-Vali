@@ -183,55 +183,62 @@ These genes were selected for their roles in inflammation, immune regulation, or
 | **Ccl4**  | Chemokine that recruits monocytes, T cells, and NK cells to inflamed tissue |
 
 ```{r}
-sig_deg <- DEG_data %>%
-  filter(Cluster %in% cell_types,
-         ident.1 == "G2_old", ident.2 == "G1_young",
-         p_val_adj < 0.05)
-
-top_up   <- sig_deg %>%
-  group_by(Cluster) %>%
-  slice_max(order_by = avg_log2FC, n = 10, with_ties = FALSE) %>%
-  mutate(direction = "Up (old vs young)")
-
-top_down <- sig_deg %>%
-  group_by(Cluster) %>%
-  slice_min(order_by = avg_log2FC, n = 10, with_ties = FALSE) %>%
-  mutate(direction = "Down (old vs young)")
-
-top10_both <- bind_rows(top_up, top_down) %>%
-  arrange(Cluster, desc(avg_log2FC))
-
-top10_both
-```
-
-```{r}
+library(dplyr)
+library(ggplot2)
+library(forcats)
 library(knitr)
 
-top10_both %>%
-  select(Cluster, gene_symbol, avg_log2FC, p_val_adj, direction) %>%
+# Define and clean
+top5_both <- DEG_data %>%
+  filter(Cluster %in% cell_types,
+         ident.1 == "G2_old", ident.2 == "G1_young",
+         avg_log2FC != 0) %>%
+  # Remove uninformative predicted/missing genes
+  filter(!grepl("^Gm|^Rik|^ENSMUSG", gene)) %>%
+  mutate(display_gene = ifelse(is.na(gene_symbol) | gene_symbol == "", gene, gene_symbol)) %>%
+  group_by(Cluster) %>%
+  slice_max(order_by = avg_log2FC, n = 5, with_ties = FALSE) %>%
+  mutate(direction = "Up (old vs young)") %>%
+  bind_rows(
+    DEG_data %>%
+      filter(Cluster %in% cell_types,
+             ident.1 == "G2_old", ident.2 == "G1_young",
+             avg_log2FC != 0) %>%
+      filter(!grepl("^Gm|^Rik|^ENSMUSG", gene)) %>%
+      mutate(display_gene = ifelse(is.na(gene_symbol) | gene_symbol == "", gene, gene_symbol)) %>%
+      group_by(Cluster) %>%
+      slice_min(order_by = avg_log2FC, n = 5, with_ties = FALSE) %>%
+      mutate(direction = "Down (old vs young)")
+  ) %>%
+  ungroup() %>%
   mutate(p_val_adj = signif(p_val_adj, 3)) %>%
-  kable(format = "html", digits = 2, 
-        caption = "Top 10 Up & Down Genes per Cell Type (Aged vs Young)")
+  arrange(Cluster, desc(avg_log2FC))
 
-```
-```{r}
-ggplot(top10_both,
-       aes(x = fct_reorder(gene_symbol, avg_log2FC),
+# 📋 Table
+top5_both %>%
+  dplyr::select(Cluster, display_gene, avg_log2FC, p_val_adj, direction) %>%
+  kable(format = "html", digits = 2,
+        caption = "Top 5 Up & Down Genes per Cell Type (Based on Fold Change)")
+
+# 📊 Plot
+ggplot(top5_both,
+       aes(x = fct_reorder(display_gene, avg_log2FC),
            y = avg_log2FC,
            color = direction)) +
   geom_point(size = 3) +
-  geom_segment(aes(xend = gene_symbol, y = 0, yend = avg_log2FC),
+  geom_segment(aes(xend = display_gene, y = 0, yend = avg_log2FC),
                linewidth = 0.6) +
   facet_wrap(~ Cluster, scales = "free_y") +
   coord_flip() +
   scale_color_manual(values = c("Up (old vs young)" = "firebrick2",
                                 "Down (old vs young)" = "dodgerblue3")) +
-  labs(title = "Top 10 Up & Down DEGs per Cell Type (Aged vs Young)",
+  labs(title = "Top 5 Up & Down DEGs per Cell Type (Based on Fold Change)",
        x = "Gene", y = "log2FC (old vs young)", color = "") +
   theme_minimal(base_size = 12) +
   theme(legend.position = "top")
-```
+library(dplyr)
 
+```
 
 ## Summary
 Using single-cell RNA-seq data from young and aged mouse brains, this project revealed age-related transcriptional changes in endothelial cells, macrophages, and T memory cells. Aged brains showed increased expression of adhesion molecules (e.g., VCAM1, ICAM1) and inflammatory mediators (e.g., CXCL10, TNF), suggesting enhanced immune activation and vascular inflammation. These findings highlight cell-type–specific shifts that may contribute to neuroinflammation and barrier dysfunction with aging.
