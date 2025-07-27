@@ -185,14 +185,14 @@ These genes were selected for their roles in inflammation, immune regulation, or
 
 ```{r}
 
-# Define and clean
+# 📊 Define and clean top 5 DEGs per cluster
 top5_both <- DEG_data %>%
   filter(Cluster %in% cell_types,
          ident.1 == "G2_old", ident.2 == "G1_young",
          avg_log2FC != 0) %>%
   # Remove uninformative predicted/missing genes
-  filter(!grepl("^Gm|^Rik|^ENSMUSG", gene)) %>%
-  mutate(display_gene = ifelse(is.na(gene_symbol) | gene_symbol == "", gene, gene_symbol)) %>%
+  filter(!grepl("^Gm|^Rik|^ENSMUSG", gene_symbol)) %>%
+  mutate(display_gene = ifelse(is.na(gene_symbol) | gene_symbol == "", gene_symbol, gene_symbol)) %>%
   group_by(Cluster) %>%
   slice_max(order_by = avg_log2FC, n = 5, with_ties = FALSE) %>%
   mutate(direction = "Up (old vs young)") %>%
@@ -201,8 +201,8 @@ top5_both <- DEG_data %>%
       filter(Cluster %in% cell_types,
              ident.1 == "G2_old", ident.2 == "G1_young",
              avg_log2FC != 0) %>%
-      filter(!grepl("^Gm|^Rik|^ENSMUSG", gene)) %>%
-      mutate(display_gene = ifelse(is.na(gene_symbol) | gene_symbol == "", gene, gene_symbol)) %>%
+      filter(!grepl("^Gm|^Rik|^ENSMUSG", gene_symbol)) %>%
+      mutate(display_gene = ifelse(is.na(gene_symbol) | gene_symbol == "", gene_symbol, gene_symbol)) %>%
       group_by(Cluster) %>%
       slice_min(order_by = avg_log2FC, n = 5, with_ties = FALSE) %>%
       mutate(direction = "Down (old vs young)")
@@ -213,18 +213,18 @@ top5_both <- DEG_data %>%
 
 # 📋 Table
 top5_both %>%
-  dplyr::select(Cluster, display_gene, avg_log2FC, p_val_adj, direction) %>%
+  select(Cluster, display_gene, avg_log2FC, p_val_adj, direction) %>%
   kable(format = "html", digits = 2,
         caption = "Top 5 Up & Down Genes per Cell Type (Based on Fold Change)")
 
-# 📊 Plot
+# 📈 Plot
 ggplot(top5_both,
        aes(x = fct_reorder(display_gene, avg_log2FC),
            y = avg_log2FC,
            color = direction)) +
   geom_point(size = 3) +
   geom_segment(aes(xend = display_gene, y = 0, yend = avg_log2FC),
-               linewidth = 0.6) +
+               size = 0.6) +  # NOTE: use `size` not `linewidth` for compatibility
   facet_wrap(~ Cluster, scales = "free_y") +
   coord_flip() +
   scale_color_manual(values = c("Up (old vs young)" = "firebrick2",
