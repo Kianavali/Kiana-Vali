@@ -18,8 +18,6 @@ DEG_data <- read_excel("DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
-library(tidyr)
-library(forcats)
 ```
 
 ```{r}
@@ -133,42 +131,15 @@ ggplot(endo_deg, aes(x = avg_log2FC, y = log10_pval)) +
 
 ```
 
-
 ```{r}
-# Filter for macrophages aged vs young
-macrophage_deg <- DEG_data %>%
-  filter(Cluster == "Macrophages",
-         ident.1 == "G2_old", ident.2 == "G1_young") %>%
-  mutate(log10_pval = -log10(p_val_adj),
-         regulation = case_when(
-           p_val_adj < 0.05 & avg_log2FC > 1 ~ "Upregulated",
-           p_val_adj < 0.05 & avg_log2FC < -1 ~ "Downregulated",
-           TRUE ~ "Not significant"
-         ))
+library(dplyr)
+library(tidyr)
+library(forcats)
 
-# Plot
-ggplot(macrophage_deg, aes(x = avg_log2FC, y = log10_pval)) +
-  geom_point(aes(color = regulation), alpha = 0.7, size = 2) +
-  scale_color_manual(values = c(
-    "Upregulated" = "firebrick2",
-    "Downregulated" = "dodgerblue3",
-    "Not significant" = "grey70"
-  )) +
-  geom_vline(xintercept = c(-1, 1), linetype = "dashed", color = "gray50") +
-  geom_hline(yintercept = -log10(0.05), linetype = "dashed", color = "gray50") +
-  labs(title = "Volcano Plot: Macrophages (Aged vs Young)",
-       x = "log2 Fold Change",
-       y = "-log10 Adjusted p-value",
-       color = "Regulation") +
-  theme_minimal(base_size = 13) +
-  theme(legend.position = "top")
+cell_types_focus <- c("Endothelial_cells", "Macrophages", "T_memory_cells")
 
-```
-
-
-```{r}
 sig_deg <- DEG_data %>%
-  filter(Cluster %in% cell_types,
+  filter(Cluster %in% cell_types_focus,
          ident.1 == "G2_old", ident.2 == "G1_young",
          p_val_adj < 0.05)
 
