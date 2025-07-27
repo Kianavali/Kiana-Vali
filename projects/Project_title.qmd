@@ -203,45 +203,14 @@ ggplot(inflamm_subset, aes(x = Cluster, y = gene_symbol, fill = avg_log2FC)) +
 ## Gene Function Summary
 
 These genes were selected for their roles in inflammation, immune regulation, or endothelial interactions:
-
-| **Gene**    | **Category**          | **Function**                               |
-|-------------|-----------------------|--------------------------------------------|
-| **Tnf**     | Cytokine              | Pro-inflammatory signaling                 |
-| **Il1b**    | Cytokine              | Fever and inflammation inducer             |
-| **Il6**     | Cytokine              | Acute-phase and immune regulation          |
-| **Ifng**    | Cytokine              | Activates macrophages, antiviral defense   |
-| **Ccl2**    | Chemokine             | Monocyte recruitment                       |
-| **Ccl3**    | Chemokine             | Inflammatory cell recruitment              |
-| **Ccl4**    | Chemokine             | Attracts T cells, monocytes, NK cells      |
-| **Cxcl9**   | Chemokine             | T cell trafficking                         |
-| **Cxcl10**  | Chemokine             | T cell and NK cell recruitment             |
-
-| **Cd80**    | Co-stimulation        | T cell activation ligand                   |
-| **Cd86**    | Co-stimulation        | Co-stimulatory receptor for CD28/CTLA4     |
-| **Cd274**   | Immune checkpoint     | PD-L1; suppresses T cell responses         |
-| **Pdcd1lg2**| Immune checkpoint     | PD-L2; binds PD-1 receptor on T cells      |
-
-| **H2-Aa**   | Antigen presentation  | MHC II gene for antigen display            |
-| **H2-Ab1**  | Antigen presentation  | MHC II gene for antigen display            |
-| **H2-Eb1**  | Antigen presentation  | MHC II beta chain                          |
-| **Tap1**    | Antigen processing    | Peptide transporter for MHC I              |
-| **Tapbp**   | Antigen processing    | Tapasin; MHC I loading chaperone           |
-| **Cd74**    | Antigen presentation  | MHC II chaperone (invariant chain)         |
-
-| **Icam1**   | Adhesion              | Endothelial-leukocyte adhesion             |
-| **Vcam1**   | Adhesion              | Monocyte/T cell vascular adhesion          |
-| **Sele**    | Adhesion              | E-selectin; neutrophil recruitment         |
-| **Sell**    | Adhesion              | L-selectin; lymphocyte homing              |
-
-| **Lyz2**    | Innate response       | Lysozyme; bacterial killing                |
-| **Nos2**    | Innate response       | Nitric oxide synthesis                     |
-| **Ptprc**   | Immune marker         | CD45; leukocyte signaling                  |
-
-| **March1**  | Immune regulation     | Suppresses MHC II and CD86 on APCs         |
-| **Marchf1** | Immune regulation     | MARCH family E3 ligase                     |
-| **Fam49b**  | Immune regulation     | T cell activation inhibitor                |
-| **Qki**     | Immune regulation     | RNA splicing; barrier integrity            |
-| **Niban1**  | Immune regulation     | Stress/inflammation response               |
+| **Category**           | **Representative Genes**                                   | **Function** |
+|------------------------|-------------------------------------------------------------|--------------|
+| **Cytokines & Chemokines** | *Tnf, Il1b, Il6, Ifng, Ccl2, Ccl3, Ccl4, Cxcl9, Cxcl10* | Mediate inflammation, immune cell recruitment, and activation |
+| **Co-stimulation & Checkpoints** | *Cd80, Cd86, Cd274 (PD-L1), Pdcd1lg2 (PD-L2)* | Regulate T cell activation and inhibition |
+| **Antigen Processing & Presentation** | *H2-Aa, H2-Ab1, H2-Eb1, Cd74, Tap1, Tapbp* | Present peptides via MHC molecules to T cells |
+| **Adhesion Molecules** | *Icam1, Vcam1, Sele, Sell* | Facilitate immune cell–endothelial interactions and trafficking |
+| **Innate Immunity & Markers** | *Lyz2, Nos2, Ptprc (CD45)* | Mediate microbial killing and immune cell signaling |
+| **Immune Regulation & Stress Response** | *March1, Marchf1, Fam49b, Qki, Niban1* | Modulate antigen presentation, T cell activity, and cellular stress |
 
 
 ## Conclusion

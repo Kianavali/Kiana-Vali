@@ -3,7 +3,7 @@
     "path": "~/GitHub/Kiana-Vali/projects/Project_title.qmd",
     "project_path": "projects/Project_title.qmd",
     "type": "quarto_markdown",
-    "hash": "0",
+    "hash": "2777736753",
     "contents": "",
     "dirty": false,
     "created": 1753582311008.0,
@@ -12,18 +12,18 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "7,320",
-        "scrollLine": "5",
+        "cursorPosition": "207,44",
+        "scrollLine": "201",
         "rmdVisualMode": "false",
         "rmdVisualCollapsedChunks": "",
         "docOutlineVisible": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1753660080,
+    "lastKnownWriteTime": 1753660627,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1753660080226,
+    "last_content_update": 1753660627542,
     "read_only": false,
     "read_only_alternatives": []
 }
