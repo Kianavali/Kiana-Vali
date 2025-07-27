@@ -1,0 +1,3 @@
+"0","# Read data file"
+"0","library(readxl)"
+"0","DEG_data <- read_excel(""DEG_All_Condition_All_CellType 1.xlsx"", sheet = 1)"
