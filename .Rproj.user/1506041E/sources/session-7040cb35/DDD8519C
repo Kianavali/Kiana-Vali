@@ -12,17 +12,17 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "189,0",
-        "scrollLine": "178",
+        "cursorPosition": "39,6",
+        "scrollLine": "28",
         "rmdVisualMode": "false",
         "rmdVisualCollapsedChunks": ""
     },
     "folds": "",
-    "lastKnownWriteTime": 1753573662,
+    "lastKnownWriteTime": 1753579101,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1753573662541,
+    "last_content_update": 1753579101106,
     "read_only": false,
     "read_only_alternatives": []
 }

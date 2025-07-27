@@ -18,6 +18,7 @@ DEG_data <- read_excel("DEG_All_Condition_All_CellType 1.xlsx", sheet = 1)
 
 ```{r}
 #load necessary packages
+message = FALSE
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
@@ -27,6 +28,24 @@ library(ggplot2)
 ```{r}
 #look at the data
 head (DEG_data)
+```
+
+```{r}
+# Count number of entries per cell type (Cluster column)
+all_cell_counts <- DEG_data %>%
+  group_by(Cluster) %>%
+  summarise(Count = n()) %>%
+  arrange(desc(Count))
+
+# Plot
+ggplot(all_cell_counts, aes(x = reorder(Cluster, -Count), y = Count, fill = Cluster)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Overview of All Cell Types in DEG Dataset",
+       x = "Cell Type", y = "Number of Entries") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position = "none")
+
 ```
 
 
