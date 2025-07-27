@@ -236,5 +236,9 @@ ggplot(top5_both,
 
 ```
 
-## Summary
-Using single-cell RNA-seq data from young and aged mouse brains, this project revealed age-related transcriptional changes in endothelial cells, macrophages, and T memory cells. Aged brains showed increased expression of adhesion molecules (e.g., VCAM1, ICAM1) and inflammatory mediators (e.g., CXCL10, TNF), suggesting enhanced immune activation and vascular inflammation. These findings highlight cell-type–specific shifts that may contribute to neuroinflammation and barrier dysfunction with aging.
+## Conclusion
+This project explored age-related gene expression changes in rare immune–vascular populations using single-cell RNA-seq data. Due to the low abundance of these cells, only a limited number of significant DEGs were identified—particularly in T cells, where no clear trends emerged.
+
+In endothelial cells, a few adhesion molecules (e.g., VCAM1, ICAM1) appeared upregulated with age, suggesting possible endothelial activation. In macrophages, the volcano plot revealed many significant changes, though not all were directly related to inflammation. A more focused analysis of inflammatory pathways is needed to interpret these results biologically.
+
+Given the limitations of whole-brain data, future work should involve sorted immune cell populations to improve resolution and detect clearer age-related transcriptional signatures.
